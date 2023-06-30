@@ -12,7 +12,7 @@ export default function ({ children }: React.PropsWithChildren) {
 	// component layout
 	return (
 		<html data-theme="emerald" lang="en">
-			<body children={children} className="h-screen w-screen overflow-hidden" />
+			<body className="h-screen w-screen overflow-hidden">{children}</body>
 		</html>
 	);
 }
