@@ -4,23 +4,25 @@ import { ButtonLink, ButtonSubmit } from "@/widgets/button";
 import { InputEmail, InputPassword } from "@/widgets/input";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function () {
 	// component hooks
-	const router = useRouter();
+	const appRouter = useRouter();
+	const signInForm = useForm<{
+		email: string;
+		password: string;
+	}>();
 
 	// component logic
-	const [email, setEmail] = useState("");
-	const [error, setError] = useState("");
-	const [isLocked, setIsLocked] = useState(false);
-	const [password, setPassword] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 
-	const openSignUp = () => router.replace("/auth/sign-up");
-	const submitForm = (e: React.FormEvent) => {
-		e.preventDefault();
+	const openSignUp = () => appRouter.replace("/auth/sign-up");
+	const submitForm = () => {
+		setTimeout(() => setIsLoading(true), 0);
+		setTimeout(() => setIsLoading(false), 2000);
 
-		setTimeout(() => setIsLocked(true), 0);
-		setTimeout(() => setIsLocked(false), 2000);
+		console.log(signInForm.getValues());
 	};
 
 	// component layout
@@ -30,11 +32,21 @@ export default function () {
 				<h2 className="card-title mb-2 text-4xl">Sign In</h2>
 				<form
 					className="card-actions flex-col gap-2 items-stretch w-64"
-					onSubmit={submitForm}
+					onSubmit={signInForm.handleSubmit(submitForm)}
 				>
-					<InputEmail action={setEmail} label="Email" />
-					<InputPassword action={setPassword} label="Password" />
-					<ButtonSubmit label="Submit" loading={isLocked} />
+					<InputEmail
+						label="Email"
+						value={signInForm.register("email", {
+							required: true,
+						})}
+					/>
+					<InputPassword
+						label="Password"
+						value={signInForm.register("password", {
+							required: true,
+						})}
+					/>
+					<ButtonSubmit label="Submit" loading={isLoading} />
 				</form>
 				<div className="divider">OR</div>
 				<nav className="card-actions items-center">

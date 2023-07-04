@@ -4,24 +4,26 @@ import { ButtonLink, ButtonSubmit } from "@/widgets/button";
 import { InputEmail, InputPassword } from "@/widgets/input";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function () {
 	// component hooks
-	const router = useRouter();
+	const appRouter = useRouter();
+	const signUpForm = useForm<{
+		email: string;
+		passwordCreate: string;
+		passwordRepeat: string;
+	}>();
 
 	// component logic
-	const [email, setEmail] = useState("");
-	const [error, setError] = useState("");
-	const [isLocked, setIsLocked] = useState(false);
-	const [passwordConfirm, setPasswordConfirm] = useState("");
-	const [passwordProvide, setPasswordProvide] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 
-	const openSignIn = () => router.replace("/auth/sign-in");
-	const submitForm = (e: React.FormEvent) => {
-		e.preventDefault();
+	const openSignIn = () => appRouter.replace("/auth/sign-in");
+	const submitForm = () => {
+		setTimeout(() => setIsLoading(true), 0);
+		setTimeout(() => setIsLoading(false), 2000);
 
-		setTimeout(() => setIsLocked(true), 0);
-		setTimeout(() => setIsLocked(false), 2000);
+		console.log(signUpForm.getValues());
 	};
 
 	// component layout
@@ -33,10 +35,25 @@ export default function () {
 					className="card-actions flex-col gap-2 items-stretch w-64"
 					onSubmit={submitForm}
 				>
-					<InputEmail action={setEmail} label="Email" />
-					<InputPassword action={setPasswordProvide} label="Provide password" />
-					<InputPassword action={setPasswordConfirm} label="Confirm password" />
-					<ButtonSubmit label="Submit" loading={isLocked} />
+					<InputEmail
+						label="Email"
+						value={signUpForm.register("email", {
+							required: true,
+						})}
+					/>
+					<InputPassword
+						label="Provide password"
+						value={signUpForm.register("passwordCreate", {
+							required: true,
+						})}
+					/>
+					<InputPassword
+						label="Confirm password"
+						value={signUpForm.register("passwordRepeat", {
+							required: true,
+						})}
+					/>
+					<ButtonSubmit label="Submit" loading={isLoading} />
 				</form>
 				<div className="divider">OR</div>
 				<nav className="card-actions items-center">

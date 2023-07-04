@@ -1,25 +1,27 @@
-export function InputEmail(props: { action(value: string): void; label: string }) {
+import { UseFormRegisterReturn } from "react-hook-form";
+
+export function InputEmail(props: { label: string; value: UseFormRegisterReturn }) {
 	// component logic
 
 	// component layout
 	return (
 		<input
+			{...props.value}
 			className="bg-neutral-200 input"
-			onChange={(e) => props.action(e.target.value)}
 			placeholder={props.label}
 			type="email"
 		/>
 	);
 }
 
-export function InputPassword(props: { action(value: string): void; label: string }) {
+export function InputPassword(props: { label: string; value: UseFormRegisterReturn }) {
 	// component logic
 
 	// component layout
 	return (
 		<input
+			{...props.value}
 			className="bg-neutral-200 input"
-			onChange={(e) => props.action(e.target.value)}
 			placeholder={props.label}
 			type="password"
 		/>
