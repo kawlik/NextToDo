@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuthContext } from "@/contexts/auth";
 import { ButtonLink, ButtonSubmit } from "@/widgets/button";
 import { InputEmail, InputPassword } from "@/widgets/input";
 import { useRouter } from "next/navigation";
@@ -8,8 +9,9 @@ import { useForm } from "react-hook-form";
 
 export default function () {
 	// component hooks
-	const appRouter = useRouter();
-	const signInForm = useForm<{
+	const router = useRouter();
+	const auth = useAuthContext();
+	const form = useForm<{
 		email: string;
 		password: string;
 	}>();
@@ -17,12 +19,12 @@ export default function () {
 	// component logic
 	const [isLoading, setIsLoading] = useState(false);
 
-	const openSignUp = () => appRouter.replace("/auth/sign-up");
+	const openSignUp = () => router.replace("/auth/sign-up");
 	const submitForm = () => {
-		setTimeout(() => setIsLoading(true), 0);
-		setTimeout(() => setIsLoading(false), 2000);
+		const values = form.getValues();
+		setIsLoading(true);
 
-		console.log(signInForm.getValues());
+		auth.signIn(values.email, values.password).catch(() => setIsLoading(false));
 	};
 
 	// component layout
@@ -32,17 +34,17 @@ export default function () {
 				<h2 className="card-title mb-2 text-4xl">Sign In</h2>
 				<form
 					className="card-actions flex-col gap-2 items-stretch w-64"
-					onSubmit={signInForm.handleSubmit(submitForm)}
+					onSubmit={form.handleSubmit(submitForm)}
 				>
 					<InputEmail
 						label="Email"
-						value={signInForm.register("email", {
+						value={form.register("email", {
 							required: true,
 						})}
 					/>
 					<InputPassword
 						label="Password"
-						value={signInForm.register("password", {
+						value={form.register("password", {
 							required: true,
 						})}
 					/>

@@ -1,4 +1,9 @@
+"use client";
+
+import { useAuthContext } from "@/contexts/auth";
 import { Metadata } from "next";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import "./layout.css";
 
 export const metadata: Metadata = {
@@ -7,12 +12,23 @@ export const metadata: Metadata = {
 };
 
 export default function ({ children }: React.PropsWithChildren) {
+	// component hooks
+	const router = useRouter();
+	const auth = useAuthContext();
+
 	// component logic
+	useEffect(() => {
+		if (auth.user === null) {
+			router.push("/auth");
+		} else {
+			router.push("/home");
+		}
+	}, [auth.user]);
 
 	// component layout
 	return (
 		<html data-theme="emerald" lang="en">
-			<body className="h-screen w-screen overflow-hidden">{children}</body>
+			<body children={children} className="h-screen w-screen overflow-hidden" />
 		</html>
 	);
 }

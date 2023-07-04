@@ -6,11 +6,11 @@ import { useRouter } from "next/navigation";
 
 export default function () {
 	// component hooks
-	const appRouter = useRouter();
+	const router = useRouter();
 
 	// component logic
-	const openSignIn = () => appRouter.push("/auth/sign-in");
-	const openSignUp = () => appRouter.push("/auth/sign-up");
+	const openSignIn = () => router.push("/auth/sign-in");
+	const openSignUp = () => router.push("/auth/sign-up");
 
 	// component layout
 	return (

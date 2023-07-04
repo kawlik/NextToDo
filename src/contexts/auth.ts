@@ -1,4 +1,4 @@
-import { logout, signIn, signUp } from "@/firebase/auth";
+import { logout, onAuthChange, signIn, signUp } from "@/firebase/auth";
 import { User, UserCredential } from "firebase/auth";
 import { create } from "zustand";
 
@@ -13,3 +13,5 @@ export const useAuthContext = create<{
 	signIn: signIn,
 	signUp: signUp,
 }));
+
+onAuthChange((user) => useAuthContext.setState(() => ({ user })));

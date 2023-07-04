@@ -7,7 +7,7 @@ export function InputEmail(props: { label: string; value: UseFormRegisterReturn 
 	return (
 		<input
 			{...props.value}
-			className="bg-neutral-200 input"
+			className={`bg-neutral-200 input input-bordered`}
 			placeholder={props.label}
 			type="email"
 		/>
@@ -21,7 +21,7 @@ export function InputPassword(props: { label: string; value: UseFormRegisterRetu
 	return (
 		<input
 			{...props.value}
-			className="bg-neutral-200 input"
+			className={`bg-neutral-200 input input-bordered`}
 			placeholder={props.label}
 			type="password"
 		/>
