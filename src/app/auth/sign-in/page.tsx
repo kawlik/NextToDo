@@ -3,6 +3,7 @@
 import { useAuthContext } from "@/contexts/auth";
 import { ButtonLink, ButtonSubmit } from "@/widgets/button";
 import { InputEmail, InputPassword } from "@/widgets/input";
+import { ModalWarning } from "@/widgets/modal";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -18,6 +19,10 @@ export default function () {
 
 	// component logic
 	const [isLoading, setIsLoading] = useState(false);
+	const [isVisible, setIsVisible] = useState(false);
+
+	const hideModal = () => setIsVisible(false);
+	const showModal = () => setIsVisible(true);
 
 	const openSignUp = () => router.replace("/auth/sign-up");
 	const submitForm = () => {
@@ -55,6 +60,11 @@ export default function () {
 					<ButtonLink action={openSignUp} label="Create new account" />
 				</nav>
 			</section>
+			<ModalWarning
+				hide={hideModal}
+				open={isVisible}
+				text="Warning: Invalid credentials!"
+			/>
 		</div>
 	);
 }

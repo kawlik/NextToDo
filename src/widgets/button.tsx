@@ -9,6 +9,17 @@ export function ButtonLink(props: { action(): void; label: string }) {
 	);
 }
 
+export function ButtonLight(props: { action(): void; label: string }) {
+	// component logic
+
+	// component layout
+	return (
+		<button className="btn normal-case" onClick={props.action} type="button">
+			{props.label}
+		</button>
+	);
+}
+
 export function ButtonNeutral(props: { action(): void; label: string }) {
 	// component logic
 

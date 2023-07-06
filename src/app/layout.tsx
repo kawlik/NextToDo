@@ -18,11 +18,11 @@ export default function ({ children }: React.PropsWithChildren) {
 
 	// component logic
 	useEffect(() => {
-		if (auth.user === null) {
-			router.push("/auth");
-		} else {
-			router.push("/home");
-		}
+		// if (auth.user === null) {
+		// 	router.push("/auth");
+		// } else {
+		// 	router.push("/home");
+		// }
 	}, [auth.user]);
 
 	// component layout
