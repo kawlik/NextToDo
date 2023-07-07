@@ -29,7 +29,10 @@ export default function () {
 		const values = form.getValues();
 		setIsLoading(true);
 
-		auth.signIn(values.email, values.password).catch(() => setIsLoading(false));
+		auth.signIn(values.email, values.password).catch(() => {
+			setIsLoading(false);
+			setIsVisible(true);
+		});
 	};
 
 	// component layout
@@ -60,11 +63,14 @@ export default function () {
 					<ButtonLink action={openSignUp} label="Create new account" />
 				</nav>
 			</section>
-			<ModalWarning
-				hide={hideModal}
-				open={isVisible}
-				text="Warning: Invalid credentials!"
-			/>
+			<ModalWarning hide={hideModal} open={isVisible} text="Invalid credentials!">
+				<p className="text-lg">Make sure that:</p>
+				<ul className="list-disc pl-8">
+					<li className="list-item">The email address is correct.</li>
+					<li className="list-item">The password has 8 characters.</li>
+					<li className="list-item">You have an active account.</li>
+				</ul>
+			</ModalWarning>
 		</div>
 	);
 }
