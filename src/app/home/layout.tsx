@@ -1,6 +1,10 @@
-export default function ({ children }: React.PropsWithChildren) {
+export default function (props: React.PropsWithChildren) {
 	// component logic
 
 	// component layout
-	return <main className="h-full w-full flex items-center justify-center">{children}</main>;
+	return (
+		<main className="flex items-center justify-center w-full h-full ">
+			{props.children}
+		</main>
+	);
 }

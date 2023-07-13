@@ -1,28 +1,20 @@
 "use client";
 
-import { BannerWelcome } from "@/widgets/banner";
-import { ButtonNeutral, ButtonPrimary } from "@/widgets/button";
-import { useRouter } from "next/navigation";
+import { PageBannerWelcome } from "./page.banner";
+import { PageButtonOutline, PageButtonPrimary } from "./page.button";
 
 export default function () {
-	// component hooks
-	const router = useRouter();
-
 	// component logic
-	const openSignIn = () => router.push("/auth/sign-in");
-	const openSignUp = () => router.push("/auth/sign-up");
 
 	// component layout
 	return (
-		<div className="card lg:border lg:shadow-xl">
+		<div className="card items-center">
 			<figure className="overflow-hidden pt-10 px-10">
-				<BannerWelcome />
+				<PageBannerWelcome width={320} height={320} />
 			</figure>
-			<section className="card-body items-center">
-				<nav className="card-actions flex-col gap-2 items-stretch w-64">
-					<ButtonPrimary action={openSignIn} label="Sign In" />
-					<ButtonNeutral action={openSignUp} label="Sign Up" />
-				</nav>
+			<section className="card-body items-stretch w-72">
+				<PageButtonPrimary action={() => {}} label="Sign In" />
+				<PageButtonOutline action={() => {}} label="Therms of Service" />
 			</section>
 		</div>
 	);
